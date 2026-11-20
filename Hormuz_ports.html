@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_da9a3f06fb2133a0b72be4daf69e1457 {
+                    position: relative;
+                    width: 100.0vw;
+                    height: 100.0vh;
+
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>/*
+ * Glyphicons Halflings -- the icon font used by folium's default Awesome Markers
+ * (Icon(prefix="glyphicon")). Extracted from Bootstrap 3's glyphicon rules only.
+ *
+ * folium previously loaded netdna's bootstrap-glyphicons.css, which despite its
+ * name ships a full Bootstrap-3 base stylesheet (normalize reset + global `body`
+ * rules) that leaked onto the host page (GH-1820). This file provides just the
+ * @font-face and .glyphicon/.glyphicon-* rules needed for the markers, with no
+ * page-wide side effects. Font files are served from jsDelivr.
+ */
+@font-face{font-family:'Glyphicons Halflings';src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot');src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing:antialiased;}
+.glyphicon-asterisk:before{content:"\2a";}
+.glyphicon-plus:before{content:"\2b";}
+.glyphicon-euro:before{content:"\20ac";}
+.glyphicon-minus:before{content:"\2212";}
+.glyphicon-cloud:before{content:"\2601";}
+.glyphicon-envelope:before{content:"\2709";}
+.glyphicon-pencil:before{content:"\270f";}
+.glyphicon-glass:before{content:"\e001";}
+.glyphicon-music:before{content:"\e002";}
+.glyphicon-search:before{content:"\e003";}
+.glyphicon-heart:before{content:"\e005";}
+.glyphicon-star:before{content:"\e006";}
+.glyphicon-star-empty:before{content:"\e007";}
+.glyphicon-user:before{content:"\e008";}
+.glyphicon-film:before{content:"\e009";}
+.glyphicon-th-large:before{content:"\e010";}
+.glyphicon-th:before{content:"\e011";}
+.glyphicon-th-list:before{content:"\e012";}
+.glyphicon-ok:before{content:"\e013";}
+.glyphicon-remove:before{content:"\e014";}
+.glyphicon-zoom-in:before{content:"\e015";}
+.glyphicon-zoom-out:before{content:"\e016";}
+.glyphicon-off:before{content:"\e017";}
+.glyphicon-signal:before{content:"\e018";}
+.glyphicon-cog:before{content:"\e019";}
+.glyphicon-trash:before{content:"\e020";}
+.glyphicon-home:before{content:"\e021";}
+.glyphicon-file:before{content:"\e022";}
+.glyphicon-time:before{content:"\e023";}
+.glyphicon-road:before{content:"\e024";}
+.glyphicon-download-alt:before{content:"\e025";}
+.glyphicon-download:before{content:"\e026";}
+.glyphicon-upload:before{content:"\e027";}
+.glyphicon-inbox:before{content:"\e028";}
+.glyphicon-play-circle:before{content:"\e029";}
+.glyphicon-repeat:before{content:"\e030";}
+.glyphicon-refresh:before{content:"\e031";}
+.glyphicon-list-alt:before{content:"\e032";}
+.glyphicon-flag:before{content:"\e034";}
+.glyphicon-headphones:before{content:"\e035";}
+.glyphicon-volume-off:before{content:"\e036";}
+.glyphicon-volume-down:before{content:"\e037";}
+.glyphicon-volume-up:before{content:"\e038";}
+.glyphicon-qrcode:before{content:"\e039";}
+.glyphicon-barcode:before{content:"\e040";}
+.glyphicon-tag:before{content:"\e041";}
+.glyphicon-tags:before{content:"\e042";}
+.glyphicon-book:before{content:"\e043";}
+.glyphicon-print:before{content:"\e045";}
+.glyphicon-font:before{content:"\e047";}
+.glyphicon-bold:before{content:"\e048";}
+.glyphicon-italic:before{content:"\e049";}
+.glyphicon-text-height:before{content:"\e050";}
+.glyphicon-text-width:before{content:"\e051";}
+.glyphicon-align-left:before{content:"\e052";}
+.glyphicon-align-center:before{content:"\e053";}
+.glyphicon-align-right:before{content:"\e054";}
+.glyphicon-align-justify:before{content:"\e055";}
+.glyphicon-list:before{content:"\e056";}
+.glyphicon-indent-left:before{content:"\e057";}
+.glyphicon-indent-right:before{content:"\e058";}
+.glyphicon-facetime-video:before{content:"\e059";}
+.glyphicon-picture:before{content:"\e060";}
+.glyphicon-map-marker:before{content:"\e062";}
+.glyphicon-adjust:before{content:"\e063";}
+.glyphicon-tint:before{content:"\e064";}
+.glyphicon-edit:before{content:"\e065";}
+.glyphicon-share:before{content:"\e066";}
+.glyphicon-check:before{content:"\e067";}
+.glyphicon-move:before{content:"\e068";}
+.glyphicon-step-backward:before{content:"\e069";}
+.glyphicon-fast-backward:before{content:"\e070";}
+.glyphicon-backward:before{content:"\e071";}
+.glyphicon-play:before{content:"\e072";}
+.glyphicon-pause:before{content:"\e073";}
+.glyphicon-stop:before{content:"\e074";}
+.glyphicon-forward:before{content:"\e075";}
+.glyphicon-fast-forward:before{content:"\e076";}
+.glyphicon-step-forward:before{content:"\e077";}
+.glyphicon-eject:before{content:"\e078";}
+.glyphicon-chevron-left:before{content:"\e079";}
+.glyphicon-chevron-right:before{content:"\e080";}
+.glyphicon-plus-sign:before{content:"\e081";}
+.glyphicon-minus-sign:before{content:"\e082";}
+.glyphicon-remove-sign:before{content:"\e083";}
+.glyphicon-ok-sign:before{content:"\e084";}
+.glyphicon-question-sign:before{content:"\e085";}
+.glyphicon-info-sign:before{content:"\e086";}
+.glyphicon-screenshot:before{content:"\e087";}
+.glyphicon-remove-circle:before{content:"\e088";}
+.glyphicon-ok-circle:before{content:"\e089";}
+.glyphicon-ban-circle:before{content:"\e090";}
+.glyphicon-arrow-left:before{content:"\e091";}
+.glyphicon-arrow-right:before{content:"\e092";}
+.glyphicon-arrow-up:before{content:"\e093";}
+.glyphicon-arrow-down:before{content:"\e094";}
+.glyphicon-share-alt:before{content:"\e095";}
+.glyphicon-resize-full:before{content:"\e096";}
+.glyphicon-resize-small:before{content:"\e097";}
+.glyphicon-exclamation-sign:before{content:"\e101";}
+.glyphicon-gift:before{content:"\e102";}
+.glyphicon-leaf:before{content:"\e103";}
+.glyphicon-eye-open:before{content:"\e105";}
+.glyphicon-eye-close:before{content:"\e106";}
+.glyphicon-warning-sign:before{content:"\e107";}
+.glyphicon-plane:before{content:"\e108";}
+.glyphicon-random:before{content:"\e110";}
+.glyphicon-comment:before{content:"\e111";}
+.glyphicon-magnet:before{content:"\e112";}
+.glyphicon-chevron-up:before{content:"\e113";}
+.glyphicon-chevron-down:before{content:"\e114";}
+.glyphicon-retweet:before{content:"\e115";}
+.glyphicon-shopping-cart:before{content:"\e116";}
+.glyphicon-folder-close:before{content:"\e117";}
+.glyphicon-folder-open:before{content:"\e118";}
+.glyphicon-resize-vertical:before{content:"\e119";}
+.glyphicon-resize-horizontal:before{content:"\e120";}
+.glyphicon-hdd:before{content:"\e121";}
+.glyphicon-bullhorn:before{content:"\e122";}
+.glyphicon-certificate:before{content:"\e124";}
+.glyphicon-thumbs-up:before{content:"\e125";}
+.glyphicon-thumbs-down:before{content:"\e126";}
+.glyphicon-hand-right:before{content:"\e127";}
+.glyphicon-hand-left:before{content:"\e128";}
+.glyphicon-hand-up:before{content:"\e129";}
+.glyphicon-hand-down:before{content:"\e130";}
+.glyphicon-circle-arrow-right:before{content:"\e131";}
+.glyphicon-circle-arrow-left:before{content:"\e132";}
+.glyphicon-circle-arrow-up:before{content:"\e133";}
+.glyphicon-circle-arrow-down:before{content:"\e134";}
+.glyphicon-globe:before{content:"\e135";}
+.glyphicon-tasks:before{content:"\e137";}
+.glyphicon-filter:before{content:"\e138";}
+.glyphicon-fullscreen:before{content:"\e140";}
+.glyphicon-dashboard:before{content:"\e141";}
+.glyphicon-heart-empty:before{content:"\e143";}
+.glyphicon-link:before{content:"\e144";}
+.glyphicon-phone:before{content:"\e145";}
+.glyphicon-usd:before{content:"\e148";}
+.glyphicon-gbp:before{content:"\e149";}
+.glyphicon-sort:before{content:"\e150";}
+.glyphicon-sort-by-alphabet:before{content:"\e151";}
+.glyphicon-sort-by-alphabet-alt:before{content:"\e152";}
+.glyphicon-sort-by-order:before{content:"\e153";}
+.glyphicon-sort-by-order-alt:before{content:"\e154";}
+.glyphicon-sort-by-attributes:before{content:"\e155";}
+.glyphicon-sort-by-attributes-alt:before{content:"\e156";}
+.glyphicon-unchecked:before{content:"\e157";}
+.glyphicon-expand:before{content:"\e158";}
+.glyphicon-collapse-down:before{content:"\e159";}
+.glyphicon-collapse-up:before{content:"\e160";}
+.glyphicon-log-in:before{content:"\e161";}
+.glyphicon-flash:before{content:"\e162";}
+.glyphicon-log-out:before{content:"\e163";}
+.glyphicon-new-window:before{content:"\e164";}
+.glyphicon-record:before{content:"\e165";}
+.glyphicon-save:before{content:"\e166";}
+.glyphicon-open:before{content:"\e167";}
+.glyphicon-saved:before{content:"\e168";}
+.glyphicon-import:before{content:"\e169";}
+.glyphicon-export:before{content:"\e170";}
+.glyphicon-send:before{content:"\e171";}
+.glyphicon-floppy-disk:before{content:"\e172";}
+.glyphicon-floppy-saved:before{content:"\e173";}
+.glyphicon-floppy-remove:before{content:"\e174";}
+.glyphicon-floppy-save:before{content:"\e175";}
+.glyphicon-floppy-open:before{content:"\e176";}
+.glyphicon-credit-card:before{content:"\e177";}
+.glyphicon-transfer:before{content:"\e178";}
+.glyphicon-cutlery:before{content:"\e179";}
+.glyphicon-header:before{content:"\e180";}
+.glyphicon-compressed:before{content:"\e181";}
+.glyphicon-earphone:before{content:"\e182";}
+.glyphicon-phone-alt:before{content:"\e183";}
+.glyphicon-tower:before{content:"\e184";}
+.glyphicon-stats:before{content:"\e185";}
+.glyphicon-sd-video:before{content:"\e186";}
+.glyphicon-hd-video:before{content:"\e187";}
+.glyphicon-subtitles:before{content:"\e188";}
+.glyphicon-sound-stereo:before{content:"\e189";}
+.glyphicon-sound-dolby:before{content:"\e190";}
+.glyphicon-sound-5-1:before{content:"\e191";}
+.glyphicon-sound-6-1:before{content:"\e192";}
+.glyphicon-sound-7-1:before{content:"\e193";}
+.glyphicon-copyright-mark:before{content:"\e194";}
+.glyphicon-registration-mark:before{content:"\e195";}
+.glyphicon-cloud-download:before{content:"\e197";}
+.glyphicon-cloud-upload:before{content:"\e198";}
+.glyphicon-tree-conifer:before{content:"\e199";}
+.glyphicon-tree-deciduous:before{content:"\e200";}
+.glyphicon-briefcase:before{content:"\1f4bc";}
+.glyphicon-calendar:before{content:"\1f4c5";}
+.glyphicon-pushpin:before{content:"\1f4cc";}
+.glyphicon-paperclip:before{content:"\1f4ce";}
+.glyphicon-camera:before{content:"\1f4f7";}
+.glyphicon-lock:before{content:"\1f512";}
+.glyphicon-bell:before{content:"\1f514";}
+.glyphicon-bookmark:before{content:"\1f516";}
+.glyphicon-fire:before{content:"\1f525";}
+.glyphicon-wrench:before{content:"\1f527";}
+</style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_da9a3f06fb2133a0b72be4daf69e1457" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_da9a3f06fb2133a0b72be4daf69e1457 = L.map(
+                "map_da9a3f06fb2133a0b72be4daf69e1457",
+                {
+                    center: [26.610751965881576, 53.437815967247644],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 6,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_17f714587888f36410e48d9ab0a76182 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_17f714587888f36410e48d9ab0a76182.addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+            var circle_marker_59778a1c342efbdac1a9ed80803bda74 = L.circleMarker(
+                [16.9503, 54.025066699999996],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_db659bb8e741d574cecc86510ec3776b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a3ebd4d46640f545730bbfc91c3f80d0 = $(`<div id="html_a3ebd4d46640f545730bbfc91c3f80d0" style="width: 100.0%; height: 100.0%;">Salalah, Oman</div>`)[0];
+                popup_db659bb8e741d574cecc86510ec3776b.setContent(html_a3ebd4d46640f545730bbfc91c3f80d0);
+            
+        
+
+        circle_marker_59778a1c342efbdac1a9ed80803bda74.bindPopup(popup_db659bb8e741d574cecc86510ec3776b)
+        ;
+
+        
+    
+    
+            var circle_marker_7a70961eb29611da601aa29f55517f12 = L.circleMarker(
+                [25.0267, 55.0324167],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_174acae8082f3d03292bc98623276b41 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4c38d1d68286fe50f4cd83bd6bcc31d4 = $(`<div id="html_4c38d1d68286fe50f4cd83bd6bcc31d4" style="width: 100.0%; height: 100.0%;">Jebel Ali, United Arab Emirates</div>`)[0];
+                popup_174acae8082f3d03292bc98623276b41.setContent(html_4c38d1d68286fe50f4cd83bd6bcc31d4);
+            
+        
+
+        circle_marker_7a70961eb29611da601aa29f55517f12.bindPopup(popup_174acae8082f3d03292bc98623276b41)
+        ;
+
+        
+    
+    
+            var circle_marker_46dfe53a4aed99a1778b4bdcc4622275 = L.circleMarker(
+                [30.41955, 49.0612167],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_73ca493b8d9cb7d399ef1ab6f452b78c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6068ddeea13cdec21a433fe26d659ab8 = $(`<div id="html_6068ddeea13cdec21a433fe26d659ab8" style="width: 100.0%; height: 100.0%;">Bandar Imam Khomeini, Iran</div>`)[0];
+                popup_73ca493b8d9cb7d399ef1ab6f452b78c.setContent(html_6068ddeea13cdec21a433fe26d659ab8);
+            
+        
+
+        circle_marker_46dfe53a4aed99a1778b4bdcc4622275.bindPopup(popup_73ca493b8d9cb7d399ef1ab6f452b78c)
+        ;
+
+        
+    
+    
+            var circle_marker_7e9dee8f3f719f741d2180e2212ecb7e = L.circleMarker(
+                [27.1697, 56.2816167],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_eedfd40261e12c7894decb468fea6a29 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_92cd421feb70c21f4c8a22914aefe482 = $(`<div id="html_92cd421feb70c21f4c8a22914aefe482" style="width: 100.0%; height: 100.0%;">Bandar Abbas, Iran</div>`)[0];
+                popup_eedfd40261e12c7894decb468fea6a29.setContent(html_92cd421feb70c21f4c8a22914aefe482);
+            
+        
+
+        circle_marker_7e9dee8f3f719f741d2180e2212ecb7e.bindPopup(popup_eedfd40261e12c7894decb468fea6a29)
+        ;
+
+        
+    
+    
+            var circle_marker_4d6f6d2d1c38a4f69c5abba613fed961 = L.circleMarker(
+                [27.5269667, 52.536],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_58c7d5de6a3a143dc9c2f4da9a38ae62 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_388d4859a455e78492d6c3b3b29900f7 = $(`<div id="html_388d4859a455e78492d6c3b3b29900f7" style="width: 100.0%; height: 100.0%;">Assaluyeh, Iran</div>`)[0];
+                popup_58c7d5de6a3a143dc9c2f4da9a38ae62.setContent(html_388d4859a455e78492d6c3b3b29900f7);
+            
+        
+
+        circle_marker_4d6f6d2d1c38a4f69c5abba613fed961.bindPopup(popup_58c7d5de6a3a143dc9c2f4da9a38ae62)
+        ;
+
+        
+    
+    
+            var circle_marker_941b0d2b657fac2741b1ca0bfa4a94a6 = L.circleMarker(
+                [25.3133667, 60.5992],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_5f62cca9ba5a12ddfe8e59f51f1e5a2d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_147ff3afbe429fed5cbe7beb75f1e27e = $(`<div id="html_147ff3afbe429fed5cbe7beb75f1e27e" style="width: 100.0%; height: 100.0%;">Chabahar, Iran</div>`)[0];
+                popup_5f62cca9ba5a12ddfe8e59f51f1e5a2d.setContent(html_147ff3afbe429fed5cbe7beb75f1e27e);
+            
+        
+
+        circle_marker_941b0d2b657fac2741b1ca0bfa4a94a6.bindPopup(popup_5f62cca9ba5a12ddfe8e59f51f1e5a2d)
+        ;
+
+        
+    
+    
+            var circle_marker_de821461d6e631796627caa9af23bc04 = L.circleMarker(
+                [29.0005167, 50.8305167],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_9b846bdc3d20290981612f0e9656d6a6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_61f042ddf84e330b8640889cbeac1e33 = $(`<div id="html_61f042ddf84e330b8640889cbeac1e33" style="width: 100.0%; height: 100.0%;">Bushehr, Iran</div>`)[0];
+                popup_9b846bdc3d20290981612f0e9656d6a6.setContent(html_61f042ddf84e330b8640889cbeac1e33);
+            
+        
+
+        circle_marker_de821461d6e631796627caa9af23bc04.bindPopup(popup_9b846bdc3d20290981612f0e9656d6a6)
+        ;
+
+        
+    
+    
+            var circle_marker_229db085c4a6462d58085e4191d032ac = L.circleMarker(
+                [30.0106667, 47.9606167],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_c74d7bee1459fd7413a225cc532c3975 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0d9802b9db3e206368c50244e68aaa38 = $(`<div id="html_0d9802b9db3e206368c50244e68aaa38" style="width: 100.0%; height: 100.0%;">Umm Qasr, Iraq</div>`)[0];
+                popup_c74d7bee1459fd7413a225cc532c3975.setContent(html_0d9802b9db3e206368c50244e68aaa38);
+            
+        
+
+        circle_marker_229db085c4a6462d58085e4191d032ac.bindPopup(popup_c74d7bee1459fd7413a225cc532c3975)
+        ;
+
+        
+    
+    
+            var circle_marker_c50a150bc9c2017fabee0bef8047db59 = L.circleMarker(
+                [24.8396667, 54.66145],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_5e8b3a70f582aba15864ea9bc1437228 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_eb1690e67c098ccd42204dbfe722df1e = $(`<div id="html_eb1690e67c098ccd42204dbfe722df1e" style="width: 100.0%; height: 100.0%;">Khalifa Port, United Arab Emirates</div>`)[0];
+                popup_5e8b3a70f582aba15864ea9bc1437228.setContent(html_eb1690e67c098ccd42204dbfe722df1e);
+            
+        
+
+        circle_marker_c50a150bc9c2017fabee0bef8047db59.bindPopup(popup_5e8b3a70f582aba15864ea9bc1437228)
+        ;
+
+        
+    
+    
+            var circle_marker_05da3b85bf6138aec6e7ced3c4e9972e = L.circleMarker(
+                [25.0253667, 51.6573833],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_74f7f96deac7acd6f5baa2eb5fdd6227 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c822e5b1e8ba372b1c719e4d06a73091 = $(`<div id="html_c822e5b1e8ba372b1c719e4d06a73091" style="width: 100.0%; height: 100.0%;">Hamad Port, Qatar</div>`)[0];
+                popup_74f7f96deac7acd6f5baa2eb5fdd6227.setContent(html_c822e5b1e8ba372b1c719e4d06a73091);
+            
+        
+
+        circle_marker_05da3b85bf6138aec6e7ced3c4e9972e.bindPopup(popup_74f7f96deac7acd6f5baa2eb5fdd6227)
+        ;
+
+        
+    
+    
+            var circle_marker_6145b37331ab3fe2e7b3b5b8e97c8040 = L.circleMarker(
+                [26.1826, 50.6902833],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_35662ad972d036567f0e9471bc963903 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8087f10fdc1612f186ca41df69b776f5 = $(`<div id="html_8087f10fdc1612f186ca41df69b776f5" style="width: 100.0%; height: 100.0%;">Khalifa Bin Salman, Bahrain</div>`)[0];
+                popup_35662ad972d036567f0e9471bc963903.setContent(html_8087f10fdc1612f186ca41df69b776f5);
+            
+        
+
+        circle_marker_6145b37331ab3fe2e7b3b5b8e97c8040.bindPopup(popup_35662ad972d036567f0e9471bc963903)
+        ;
+
+        
+    
+    
+            var circle_marker_cd4d2a50745276c345daade68bfb2ebf = L.circleMarker(
+                [25.367, 55.36955],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_5fc446199ab3f719ec576cbb46729c20 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5cf82a708ea25ec5ce36ab89c5c79474 = $(`<div id="html_5cf82a708ea25ec5ce36ab89c5c79474" style="width: 100.0%; height: 100.0%;">Sharjah, United Arab Emirates</div>`)[0];
+                popup_5fc446199ab3f719ec576cbb46729c20.setContent(html_5cf82a708ea25ec5ce36ab89c5c79474);
+            
+        
+
+        circle_marker_cd4d2a50745276c345daade68bfb2ebf.bindPopup(popup_5fc446199ab3f719ec576cbb46729c20)
+        ;
+
+        
+    
+    
+            var circle_marker_0472a59b5202a780eda48091fce03c62 = L.circleMarker(
+                [25.2788667, 55.27635],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_a2b7e283e1583b1c49488799c27a6f64 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f02756e7f8ac173874fd616e3468ac9e = $(`<div id="html_f02756e7f8ac173874fd616e3468ac9e" style="width: 100.0%; height: 100.0%;">Port Rashid, United Arab Emirates</div>`)[0];
+                popup_a2b7e283e1583b1c49488799c27a6f64.setContent(html_f02756e7f8ac173874fd616e3468ac9e);
+            
+        
+
+        circle_marker_0472a59b5202a780eda48091fce03c62.bindPopup(popup_a2b7e283e1583b1c49488799c27a6f64)
+        ;
+
+        
+    
+    
+            var circle_marker_d37c64834e8d35944535308638065d8c = L.circleMarker(
+                [24.1524167, 52.7457667],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_8195d034929879fb7e9914b725db9dea = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bede6e20b9c432d21318162e1a936778 = $(`<div id="html_bede6e20b9c432d21318162e1a936778" style="width: 100.0%; height: 100.0%;">Ruwais, United Arab Emirates</div>`)[0];
+                popup_8195d034929879fb7e9914b725db9dea.setContent(html_bede6e20b9c432d21318162e1a936778);
+            
+        
+
+        circle_marker_d37c64834e8d35944535308638065d8c.bindPopup(popup_8195d034929879fb7e9914b725db9dea)
+        ;
+
+        
+    
+    
+            var circle_marker_64a383d983f7a8bc32932b3e733dba32 = L.circleMarker(
+                [30.5587333, 47.7999833],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_ce743bf84d7f8b42e721bb9650b0fd18 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ce3b74bcb9e9745624d1bfd2dd067e54 = $(`<div id="html_ce3b74bcb9e9745624d1bfd2dd067e54" style="width: 100.0%; height: 100.0%;">Basrah, Iraq</div>`)[0];
+                popup_ce743bf84d7f8b42e721bb9650b0fd18.setContent(html_ce3b74bcb9e9745624d1bfd2dd067e54);
+            
+        
+
+        circle_marker_64a383d983f7a8bc32932b3e733dba32.bindPopup(popup_ce743bf84d7f8b42e721bb9650b0fd18)
+        ;
+
+        
+    
+    
+            var circle_marker_f3007b23701fb48fc6b4e0f6c0d24a7c = L.circleMarker(
+                [24.5156667, 56.628],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_89d40a867ccbefab34d183084844c188 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_89cf12aa858ff84aa72935377beaefb0 = $(`<div id="html_89cf12aa858ff84aa72935377beaefb0" style="width: 100.0%; height: 100.0%;">Sohar, Oman</div>`)[0];
+                popup_89d40a867ccbefab34d183084844c188.setContent(html_89cf12aa858ff84aa72935377beaefb0);
+            
+        
+
+        circle_marker_f3007b23701fb48fc6b4e0f6c0d24a7c.bindPopup(popup_89d40a867ccbefab34d183084844c188)
+        ;
+
+        
+    
+    
+            var circle_marker_230b0f76b2bbcc312e6ffc18cf0db11e = L.circleMarker(
+                [29.341856002, 47.935010347],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_1691171a4c08c7ba5bba72a20e9b51c7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_18f930925e5c97510a2f11ab920ff775 = $(`<div id="html_18f930925e5c97510a2f11ab920ff775" style="width: 100.0%; height: 100.0%;">Shuwaikh, Kuwait</div>`)[0];
+                popup_1691171a4c08c7ba5bba72a20e9b51c7.setContent(html_18f930925e5c97510a2f11ab920ff775);
+            
+        
+
+        circle_marker_230b0f76b2bbcc312e6ffc18cf0db11e.bindPopup(popup_1691171a4c08c7ba5bba72a20e9b51c7)
+        ;
+
+        
+    
+    
+            var circle_marker_da10309535eaef55cd38332ec68daf4f = L.circleMarker(
+                [25.3616, 56.3649],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_899758467a47df76f22a3b96b2f6c590 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d1a814769498059cecba703030844b1a = $(`<div id="html_d1a814769498059cecba703030844b1a" style="width: 100.0%; height: 100.0%;">Khor Fakkan, United Arab Emirates</div>`)[0];
+                popup_899758467a47df76f22a3b96b2f6c590.setContent(html_d1a814769498059cecba703030844b1a);
+            
+        
+
+        circle_marker_da10309535eaef55cd38332ec68daf4f.bindPopup(popup_899758467a47df76f22a3b96b2f6c590)
+        ;
+
+        
+    
+    
+            var circle_marker_f10683c1126d2aff869d16b470f1885d = L.circleMarker(
+                [19.689, 57.7249833],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_07dc199ea674326711e90517fac7e4ab = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_12fd036f06ca1eda2bf39510b2f39044 = $(`<div id="html_12fd036f06ca1eda2bf39510b2f39044" style="width: 100.0%; height: 100.0%;">Al Duqm, Oman</div>`)[0];
+                popup_07dc199ea674326711e90517fac7e4ab.setContent(html_12fd036f06ca1eda2bf39510b2f39044);
+            
+        
+
+        circle_marker_f10683c1126d2aff869d16b470f1885d.bindPopup(popup_07dc199ea674326711e90517fac7e4ab)
+        ;
+
+        
+    
+    
+            var circle_marker_8b4e9886cfb5b97efcf36f43c54953d9 = L.circleMarker(
+                [25.1809333, 56.3819333],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_17fe32328f01d79dc5dea39ae436b8a2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ae0cab5a0240142a2f4ba234459a1653 = $(`<div id="html_ae0cab5a0240142a2f4ba234459a1653" style="width: 100.0%; height: 100.0%;">Fujairah, United Arab Emirates</div>`)[0];
+                popup_17fe32328f01d79dc5dea39ae436b8a2.setContent(html_ae0cab5a0240142a2f4ba234459a1653);
+            
+        
+
+        circle_marker_8b4e9886cfb5b97efcf36f43c54953d9.bindPopup(popup_17fe32328f01d79dc5dea39ae436b8a2)
+        ;
+
+        
+    
+    
+            var circle_marker_29f92e3569f8733e4d9d83aef58aa966 = L.circleMarker(
+                [30.433332443, 48.183333333],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_fa6f17503321dbaa0a59886cb91075eb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fea448e80d24ffa84257285de30f9087 = $(`<div id="html_fea448e80d24ffa84257285de30f9087" style="width: 100.0%; height: 100.0%;">Khorramshahr, Iran</div>`)[0];
+                popup_fa6f17503321dbaa0a59886cb91075eb.setContent(html_fea448e80d24ffa84257285de30f9087);
+            
+        
+
+        circle_marker_29f92e3569f8733e4d9d83aef58aa966.bindPopup(popup_fa6f17503321dbaa0a59886cb91075eb)
+        ;
+
+        
+    
+    
+            var circle_marker_24139eda69454b55b1e13bc469236dc8 = L.circleMarker(
+                [29.044, 48.1611667],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_4204133cc9fc92d3878cc3ded117ff5b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_74be3f9201d68e76804a558f8420e754 = $(`<div id="html_74be3f9201d68e76804a558f8420e754" style="width: 100.0%; height: 100.0%;">Shuaiba, Kuwait</div>`)[0];
+                popup_4204133cc9fc92d3878cc3ded117ff5b.setContent(html_74be3f9201d68e76804a558f8420e754);
+            
+        
+
+        circle_marker_24139eda69454b55b1e13bc469236dc8.bindPopup(popup_4204133cc9fc92d3878cc3ded117ff5b)
+        ;
+
+        
+    
+    
+            var circle_marker_1edf8d6d668de2b1bb96c57133929915 = L.circleMarker(
+                [25.4240333, 55.4549833],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_f20e999dd2c5e4dcadac7f13127f7bcb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e2abafea465b71006d1276810cb87d7d = $(`<div id="html_e2abafea465b71006d1276810cb87d7d" style="width: 100.0%; height: 100.0%;">Ajman, United Arab Emirates</div>`)[0];
+                popup_f20e999dd2c5e4dcadac7f13127f7bcb.setContent(html_e2abafea465b71006d1276810cb87d7d);
+            
+        
+
+        circle_marker_1edf8d6d668de2b1bb96c57133929915.bindPopup(popup_f20e999dd2c5e4dcadac7f13127f7bcb)
+        ;
+
+        
+    
+    
+            var circle_marker_83a77921746ec3ff48ddf8e80ace10cf = L.circleMarker(
+                [25.9768833, 56.0506],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_60b9fdc3ad5794f718b96693f65940db = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_824f29ba9003fa3acb4cab11a11f1487 = $(`<div id="html_824f29ba9003fa3acb4cab11a11f1487" style="width: 100.0%; height: 100.0%;">Mina Saqr, United Arab Emirates</div>`)[0];
+                popup_60b9fdc3ad5794f718b96693f65940db.setContent(html_824f29ba9003fa3acb4cab11a11f1487);
+            
+        
+
+        circle_marker_83a77921746ec3ff48ddf8e80ace10cf.bindPopup(popup_60b9fdc3ad5794f718b96693f65940db)
+        ;
+
+        
+    
+    
+            var circle_marker_fa7ebf522b34f71579692f9da0b6fc8d = L.circleMarker(
+                [25.5908667, 55.5852333],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_1b7bbcd3de4d43dd9bc2f5514622dd31 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6d63792a4328b3f1ac02dfcd67963e25 = $(`<div id="html_6d63792a4328b3f1ac02dfcd67963e25" style="width: 100.0%; height: 100.0%;">Ahmed Bin Rashid Port, United Arab Emirates</div>`)[0];
+                popup_1b7bbcd3de4d43dd9bc2f5514622dd31.setContent(html_6d63792a4328b3f1ac02dfcd67963e25);
+            
+        
+
+        circle_marker_fa7ebf522b34f71579692f9da0b6fc8d.bindPopup(popup_1b7bbcd3de4d43dd9bc2f5514622dd31)
+        ;
+
+        
+    
+    
+            var circle_marker_9b2a10b3688c78c612fbf0c3f74eb937 = L.circleMarker(
+                [25.4764167, 55.4793667],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_85b55f687329443278eaa030ab71dd0b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_15b819a1abfc90583a04b1ca9d95ef88 = $(`<div id="html_15b819a1abfc90583a04b1ca9d95ef88" style="width: 100.0%; height: 100.0%;">Hamriyah Free Zone Port, United Arab Emirates</div>`)[0];
+                popup_85b55f687329443278eaa030ab71dd0b.setContent(html_15b819a1abfc90583a04b1ca9d95ef88);
+            
+        
+
+        circle_marker_9b2a10b3688c78c612fbf0c3f74eb937.bindPopup(popup_85b55f687329443278eaa030ab71dd0b)
+        ;
+
+        
+    
+    
+            var circle_marker_78e98af88d905a337753e7e16c67de8f = L.circleMarker(
+                [25.301, 55.3303833],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_4e8fdfb5bb3786f6bc96b989424fa84d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_eb3fa2eed466a692d262f059ec98d7b9 = $(`<div id="html_eb3fa2eed466a692d262f059ec98d7b9" style="width: 100.0%; height: 100.0%;">Mina Al Hamriya, United Arab Emirates</div>`)[0];
+                popup_4e8fdfb5bb3786f6bc96b989424fa84d.setContent(html_eb3fa2eed466a692d262f059ec98d7b9);
+            
+        
+
+        circle_marker_78e98af88d905a337753e7e16c67de8f.bindPopup(popup_4e8fdfb5bb3786f6bc96b989424fa84d)
+        ;
+
+        
+    
+    
+            var circle_marker_8c18bb813e28358a4fa0b18b97b0bb15 = L.circleMarker(
+                [23.6258167, 58.5706833],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_bb65230efd964059fa2b95271394fb49 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8e5028da78c4e03eb0a9303e9e69afc6 = $(`<div id="html_8e5028da78c4e03eb0a9303e9e69afc6" style="width: 100.0%; height: 100.0%;">Sultan Qaboos Port, Oman</div>`)[0];
+                popup_bb65230efd964059fa2b95271394fb49.setContent(html_8e5028da78c4e03eb0a9303e9e69afc6);
+            
+        
+
+        circle_marker_8c18bb813e28358a4fa0b18b97b0bb15.bindPopup(popup_bb65230efd964059fa2b95271394fb49)
+        ;
+
+        
+    
+    
+            var circle_marker_a5d5e4bdcff3c43825bf2920cbe3e485 = L.circleMarker(
+                [25.222170819211, 55.2464497967205],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_c9cfca2256b91775ee18726330264396 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ea03463fd1d7a908e37ad76ef01db915 = $(`<div id="html_ea03463fd1d7a908e37ad76ef01db915" style="width: 100.0%; height: 100.0%;">Hassyan, Dubaï</div>`)[0];
+                popup_c9cfca2256b91775ee18726330264396.setContent(html_ea03463fd1d7a908e37ad76ef01db915);
+            
+        
+
+        circle_marker_a5d5e4bdcff3c43825bf2920cbe3e485.bindPopup(popup_c9cfca2256b91775ee18726330264396)
+        ;
+
+        
+    
+    
+            var circle_marker_68519b02ea6276775f043a71bf5553ae = L.circleMarker(
+                [24.924324035, 51.576149205],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_b6a185645e0aeff8710908da765d4cdc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_86d54fd75796f937506eb74374170469 = $(`<div id="html_86d54fd75796f937506eb74374170469" style="width: 100.0%; height: 100.0%;">Mesaieed, Qatar</div>`)[0];
+                popup_b6a185645e0aeff8710908da765d4cdc.setContent(html_86d54fd75796f937506eb74374170469);
+            
+        
+
+        circle_marker_68519b02ea6276775f043a71bf5553ae.bindPopup(popup_b6a185645e0aeff8710908da765d4cdc)
+        ;
+
+        
+    
+    
+            var circle_marker_71da97d2cf66e798f13b163a7096aa3a = L.circleMarker(
+                [26.16915, 50.6583167],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_1235b6897c83f8c59f2096dcfc687aff = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_408a0a78cff08d158755963f023164d3 = $(`<div id="html_408a0a78cff08d158755963f023164d3" style="width: 100.0%; height: 100.0%;">Sitra, Bahrain</div>`)[0];
+                popup_1235b6897c83f8c59f2096dcfc687aff.setContent(html_408a0a78cff08d158755963f023164d3);
+            
+        
+
+        circle_marker_71da97d2cf66e798f13b163a7096aa3a.bindPopup(popup_1235b6897c83f8c59f2096dcfc687aff)
+        ;
+
+        
+    
+    
+            var circle_marker_ea11b73db58381bc557a00bae1c53cc2 = L.circleMarker(
+                [26.9552333, 55.9778667],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_c01073efca33baa11da5d0b07da6b343 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d7d9a0ec44dc2dc99d89c6091f93f1e8 = $(`<div id="html_d7d9a0ec44dc2dc99d89c6091f93f1e8" style="width: 100.0%; height: 100.0%;">Qeshm Island, Iran</div>`)[0];
+                popup_c01073efca33baa11da5d0b07da6b343.setContent(html_d7d9a0ec44dc2dc99d89c6091f93f1e8);
+            
+        
+
+        circle_marker_ea11b73db58381bc557a00bae1c53cc2.bindPopup(popup_c01073efca33baa11da5d0b07da6b343)
+        ;
+
+        
+    
+    
+            var circle_marker_61476f068b6466a1158c98ccb49255ee = L.circleMarker(
+                [26.5445167, 54.8901667],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_fd662aaa837a820973613007b8b98e0c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fe231b091d15693faf2061c1f7cc2169 = $(`<div id="html_fe231b091d15693faf2061c1f7cc2169" style="width: 100.0%; height: 100.0%;">Bandar Lengeh, Iran</div>`)[0];
+                popup_fd662aaa837a820973613007b8b98e0c.setContent(html_fe231b091d15693faf2061c1f7cc2169);
+            
+        
+
+        circle_marker_61476f068b6466a1158c98ccb49255ee.bindPopup(popup_fd662aaa837a820973613007b8b98e0c)
+        ;
+
+        
+    
+    
+            var circle_marker_f642cb089a3073dabd81b73f5c1ac41f = L.circleMarker(
+                [25.816667556, 55.2],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_411e62fb5589130d0ffa493c49d924e5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2d4838adaeaf7b14c11ca4b1ee4d844c = $(`<div id="html_2d4838adaeaf7b14c11ca4b1ee4d844c" style="width: 100.0%; height: 100.0%;">Mubarek Terminal, United Arab Emirates</div>`)[0];
+                popup_411e62fb5589130d0ffa493c49d924e5.setContent(html_2d4838adaeaf7b14c11ca4b1ee4d844c);
+            
+        
+
+        circle_marker_f642cb089a3073dabd81b73f5c1ac41f.bindPopup(popup_411e62fb5589130d0ffa493c49d924e5)
+        ;
+
+        
+    
+    
+            var circle_marker_9e4eb879a0cc38012f164217d3aa2f9d = L.circleMarker(
+                [30.1874167, 47.8921667],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_bb0afb7c6562d07f94712e2ccbd7360c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f11b8c2debb288c19fa5ed7f828d3c06 = $(`<div id="html_f11b8c2debb288c19fa5ed7f828d3c06" style="width: 100.0%; height: 100.0%;">Khor Al Zubair, Iraq</div>`)[0];
+                popup_bb0afb7c6562d07f94712e2ccbd7360c.setContent(html_f11b8c2debb288c19fa5ed7f828d3c06);
+            
+        
+
+        circle_marker_9e4eb879a0cc38012f164217d3aa2f9d.bindPopup(popup_bb0afb7c6562d07f94712e2ccbd7360c)
+        ;
+
+        
+    
+    
+            var circle_marker_27f39f7a474a8a72e0dbf8556aac1349 = L.circleMarker(
+                [25.72, 55.8015],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_92c7ceffb4c22b64db89a3ba00fa71c6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c765d33a7b1f07957385ba48730e7123 = $(`<div id="html_c765d33a7b1f07957385ba48730e7123" style="width: 100.0%; height: 100.0%;">Al Jazeera Port , United Arab Emirates</div>`)[0];
+                popup_92c7ceffb4c22b64db89a3ba00fa71c6.setContent(html_c765d33a7b1f07957385ba48730e7123);
+            
+        
+
+        circle_marker_27f39f7a474a8a72e0dbf8556aac1349.bindPopup(popup_92c7ceffb4c22b64db89a3ba00fa71c6)
+        ;
+
+        
+    
+    
+            var circle_marker_f74a797461caaccab88ad7d382724a11 = L.circleMarker(
+                [24.8687833, 53.09155],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_d1657292b9cd4aff52f4fe42678107f8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a3c62b67d0c2592c68671a8e5408769a = $(`<div id="html_a3c62b67d0c2592c68671a8e5408769a" style="width: 100.0%; height: 100.0%;">Zirku Island, United Arab Emirates</div>`)[0];
+                popup_d1657292b9cd4aff52f4fe42678107f8.setContent(html_a3c62b67d0c2592c68671a8e5408769a);
+            
+        
+
+        circle_marker_f74a797461caaccab88ad7d382724a11.bindPopup(popup_d1657292b9cd4aff52f4fe42678107f8)
+        ;
+
+        
+    
+    
+            var circle_marker_0338508dceac33811af9b4d2e114bc24 = L.circleMarker(
+                [23.6520833, 58.53615],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_df0cb2ce6bb96fd8a60f9641467609d3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fbe13cb885d6774ed1b77751f5deb521 = $(`<div id="html_fbe13cb885d6774ed1b77751f5deb521" style="width: 100.0%; height: 100.0%;">Mina al Fahal, Oman</div>`)[0];
+                popup_df0cb2ce6bb96fd8a60f9641467609d3.setContent(html_fbe13cb885d6774ed1b77751f5deb521);
+            
+        
+
+        circle_marker_0338508dceac33811af9b4d2e114bc24.bindPopup(popup_df0cb2ce6bb96fd8a60f9641467609d3)
+        ;
+
+        
+    
+    
+            var circle_marker_603e30cdf91c8eba76befbbe4540b466 = L.circleMarker(
+                [29.66666603, 48.8],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_2e9e7291bf2d13c190175cc83b8689ee = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_29eb81c8ce27722910a85bcbc0583a26 = $(`<div id="html_29eb81c8ce27722910a85bcbc0583a26" style="width: 100.0%; height: 100.0%;">Al Basra Oil Terminal, Iraq</div>`)[0];
+                popup_2e9e7291bf2d13c190175cc83b8689ee.setContent(html_29eb81c8ce27722910a85bcbc0583a26);
+            
+        
+
+        circle_marker_603e30cdf91c8eba76befbbe4540b466.bindPopup(popup_2e9e7291bf2d13c190175cc83b8689ee)
+        ;
+
+        
+    
+    
+            var circle_marker_14eabdc97403720967349a0aed986ea7 = L.circleMarker(
+                [28.7503, 48.38235],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_9be356cbe6071d73b614e9884406e613 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_56bdc2436d0d6d6e89a2f69bb774d361 = $(`<div id="html_56bdc2436d0d6d6e89a2f69bb774d361" style="width: 100.0%; height: 100.0%;">Mina Saud, Kuwait</div>`)[0];
+                popup_9be356cbe6071d73b614e9884406e613.setContent(html_56bdc2436d0d6d6e89a2f69bb774d361);
+            
+        
+
+        circle_marker_14eabdc97403720967349a0aed986ea7.bindPopup(popup_9be356cbe6071d73b614e9884406e613)
+        ;
+
+        
+    
+    
+            var circle_marker_8bc1ac80e12c4562959d19e345513a9f = L.circleMarker(
+                [29.0302833, 48.21375],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_9894083d7095f7761d79374fa1fcdc68 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_16f4cd7111bd1f461eeb365f0c138c82 = $(`<div id="html_16f4cd7111bd1f461eeb365f0c138c82" style="width: 100.0%; height: 100.0%;">Mina Abdulla, Kuwait</div>`)[0];
+                popup_9894083d7095f7761d79374fa1fcdc68.setContent(html_16f4cd7111bd1f461eeb365f0c138c82);
+            
+        
+
+        circle_marker_8bc1ac80e12c4562959d19e345513a9f.bindPopup(popup_9894083d7095f7761d79374fa1fcdc68)
+        ;
+
+        
+    
+    
+            var circle_marker_6357b56a9520ced1fcbf473c8b82f224 = L.circleMarker(
+                [29.0704667, 48.1757667],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_2e2fb91b7bc59a800666a119c6c1fed1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ae28261bf792c64ea634056220c2dced = $(`<div id="html_ae28261bf792c64ea634056220c2dced" style="width: 100.0%; height: 100.0%;">Mina Al Ahmadi, Kuwait</div>`)[0];
+                popup_2e2fb91b7bc59a800666a119c6c1fed1.setContent(html_ae28261bf792c64ea634056220c2dced);
+            
+        
+
+        circle_marker_6357b56a9520ced1fcbf473c8b82f224.bindPopup(popup_2e2fb91b7bc59a800666a119c6c1fed1)
+        ;
+
+        
+    
+    
+            var circle_marker_9139ea00ffbed7789c2deac13b9e8623 = L.circleMarker(
+                [26.1952, 50.6511667],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_84e8827af28972f816a622ed631c6f16 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_29ff951a483b1ea845f2857a2bc9fdcb = $(`<div id="html_29ff951a483b1ea845f2857a2bc9fdcb" style="width: 100.0%; height: 100.0%;">Mina Salman, Bahrain</div>`)[0];
+                popup_84e8827af28972f816a622ed631c6f16.setContent(html_29ff951a483b1ea845f2857a2bc9fdcb);
+            
+        
+
+        circle_marker_9139ea00ffbed7789c2deac13b9e8623.bindPopup(popup_84e8827af28972f816a622ed631c6f16)
+        ;
+
+        
+    
+    
+            var circle_marker_86f1e6eb2c03c9f9d330dede051fbee7 = L.circleMarker(
+                [24.3083333, 54.4663333],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_ea1ae02025de0802802c447cf1dfb1cc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_60389253a874f20d7b8c144af99c8a87 = $(`<div id="html_60389253a874f20d7b8c144af99c8a87" style="width: 100.0%; height: 100.0%;">Musaffah, United Arab Emirates</div>`)[0];
+                popup_ea1ae02025de0802802c447cf1dfb1cc.setContent(html_60389253a874f20d7b8c144af99c8a87);
+            
+        
+
+        circle_marker_86f1e6eb2c03c9f9d330dede051fbee7.bindPopup(popup_ea1ae02025de0802802c447cf1dfb1cc)
+        ;
+
+        
+    
+    
+            var circle_marker_699d360a19dd75594acec5924286c881 = L.circleMarker(
+                [24.51061058, 54.376877106],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_7e9a54505c512828f99871ef15eedf99 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0f34162d4ec9741bef5c318b991407d7 = $(`<div id="html_0f34162d4ec9741bef5c318b991407d7" style="width: 100.0%; height: 100.0%;">Abu Dhabi, United Arab Emirates</div>`)[0];
+                popup_7e9a54505c512828f99871ef15eedf99.setContent(html_0f34162d4ec9741bef5c318b991407d7);
+            
+        
+
+        circle_marker_699d360a19dd75594acec5924286c881.bindPopup(popup_7e9a54505c512828f99871ef15eedf99)
+        ;
+
+        
+    
+    
+            var circle_marker_59f015820e38f2413c9f2d585029c411 = L.circleMarker(
+                [25.1496667, 52.8888167],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_0c2bfb3c4352479dfab21ef6dbf45423 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2a99e5466d66ac0a7669d492ffe6ee43 = $(`<div id="html_2a99e5466d66ac0a7669d492ffe6ee43" style="width: 100.0%; height: 100.0%;">Das Island, United Arab Emirates</div>`)[0];
+                popup_0c2bfb3c4352479dfab21ef6dbf45423.setContent(html_2a99e5466d66ac0a7669d492ffe6ee43);
+            
+        
+
+        circle_marker_59f015820e38f2413c9f2d585029c411.bindPopup(popup_0c2bfb3c4352479dfab21ef6dbf45423)
+        ;
+
+        
+    
+    
+            var circle_marker_d3313d570103e351df9dfe654d745367 = L.circleMarker(
+                [25.9182167, 51.6569167],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_97612e44a88ddd6895eece4ed626d07b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_df29f5cfa7159eb46c3276e484db86d9 = $(`<div id="html_df29f5cfa7159eb46c3276e484db86d9" style="width: 100.0%; height: 100.0%;">Ras Laffan, Qatar</div>`)[0];
+                popup_97612e44a88ddd6895eece4ed626d07b.setContent(html_df29f5cfa7159eb46c3276e484db86d9);
+            
+        
+
+        circle_marker_d3313d570103e351df9dfe654d745367.bindPopup(popup_97612e44a88ddd6895eece4ed626d07b)
+        ;
+
+        
+    
+    
+            var circle_marker_436cc3e37ccb75bba205d87725223f7c = L.circleMarker(
+                [25.6671167, 52.4110833],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_b751c75f84b3914a9ae9db74f5645bbd = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ca745fd6f096345ef1f5d3442d0c89d3 = $(`<div id="html_ca745fd6f096345ef1f5d3442d0c89d3" style="width: 100.0%; height: 100.0%;">Halul Island, Qatar</div>`)[0];
+                popup_b751c75f84b3914a9ae9db74f5645bbd.setContent(html_ca745fd6f096345ef1f5d3442d0c89d3);
+            
+        
+
+        circle_marker_436cc3e37ccb75bba205d87725223f7c.bindPopup(popup_b751c75f84b3914a9ae9db74f5645bbd)
+        ;
+
+        
+    
+    
+            var circle_marker_d634ec8113391033c45aa6051d509ead = L.circleMarker(
+                [26.2098, 56.2530333],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_3a9506d325c84e8ce4b1917ffb59d275 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_67a8a2528606738c4c337ace1dec3c24 = $(`<div id="html_67a8a2528606738c4c337ace1dec3c24" style="width: 100.0%; height: 100.0%;">Khasab, Oman</div>`)[0];
+                popup_3a9506d325c84e8ce4b1917ffb59d275.setContent(html_67a8a2528606738c4c337ace1dec3c24);
+            
+        
+
+        circle_marker_d634ec8113391033c45aa6051d509ead.bindPopup(popup_3a9506d325c84e8ce4b1917ffb59d275)
+        ;
+
+        
+    
+    
+            var circle_marker_a113748a55a7fb2f359d2d9eb404a60d = L.circleMarker(
+                [23.85716548421, 57.4392469041291],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_c5f45ce84349f3d98fb760b559c49cbb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6ce798436450cd3fcd48de8e005e8348 = $(`<div id="html_6ce798436450cd3fcd48de8e005e8348" style="width: 100.0%; height: 100.0%;">Al Suwaiq, Oman</div>`)[0];
+                popup_c5f45ce84349f3d98fb760b559c49cbb.setContent(html_6ce798436450cd3fcd48de8e005e8348);
+            
+        
+
+        circle_marker_a113748a55a7fb2f359d2d9eb404a60d.bindPopup(popup_c5f45ce84349f3d98fb760b559c49cbb)
+        ;
+
+        
+    
+    
+            var circle_marker_b45bd5cacfbc41edd7be1919f77bcda1 = L.circleMarker(
+                [24.480848312, 53.358971747],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_b2f4bffcd8b7dba3e1dcf89c6aa116c2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e8bc98db40f8df29f82b153a5395fff2 = $(`<div id="html_e8bc98db40f8df29f82b153a5395fff2" style="width: 100.0%; height: 100.0%;">Mubarraz Island, United Arab Emirates</div>`)[0];
+                popup_b2f4bffcd8b7dba3e1dcf89c6aa116c2.setContent(html_e8bc98db40f8df29f82b153a5395fff2);
+            
+        
+
+        circle_marker_b45bd5cacfbc41edd7be1919f77bcda1.bindPopup(popup_b2f4bffcd8b7dba3e1dcf89c6aa116c2)
+        ;
+
+        
+    
+    
+            var circle_marker_3294b31a3a7f9a4e5977d13517895f79 = L.circleMarker(
+                [26.583333969, 52.0],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_07c889abc252d89865f248784cb8f886 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a3a496a37d4e281a329cad68f03f0249 = $(`<div id="html_a3a496a37d4e281a329cad68f03f0249" style="width: 100.0%; height: 100.0%;">Al Shaheen Terminal, Qatar</div>`)[0];
+                popup_07c889abc252d89865f248784cb8f886.setContent(html_a3a496a37d4e281a329cad68f03f0249);
+            
+        
+
+        circle_marker_3294b31a3a7f9a4e5977d13517895f79.bindPopup(popup_07c889abc252d89865f248784cb8f886)
+        ;
+
+        
+    
+    
+            var circle_marker_5a3e0c22d6d67883e811b589de4941f5 = L.circleMarker(
+                [25.600000381, 54.516666666],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_1d57ff26ff8240272891694678b17813 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b98d3b27f6befaa76c3398ab7bcad289 = $(`<div id="html_b98d3b27f6befaa76c3398ab7bcad289" style="width: 100.0%; height: 100.0%;">Fateh Terminal, United Arab Emirates</div>`)[0];
+                popup_1d57ff26ff8240272891694678b17813.setContent(html_b98d3b27f6befaa76c3398ab7bcad289);
+            
+        
+
+        circle_marker_5a3e0c22d6d67883e811b589de4941f5.bindPopup(popup_1d57ff26ff8240272891694678b17813)
+        ;
+
+        
+    
+    
+            var circle_marker_9167e2d149236ba6a3dd1d6d7f6eb798 = L.circleMarker(
+                [26.78875, 53.3458667],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_92b3a9968e735658fc512dc013ebe361 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bb7942d6621ca8c446c26bc2ee42438d = $(`<div id="html_bb7942d6621ca8c446c26bc2ee42438d" style="width: 100.0%; height: 100.0%;">Lavan Island, Iran</div>`)[0];
+                popup_92b3a9968e735658fc512dc013ebe361.setContent(html_bb7942d6621ca8c446c26bc2ee42438d);
+            
+        
+
+        circle_marker_9167e2d149236ba6a3dd1d6d7f6eb798.bindPopup(popup_92b3a9968e735658fc512dc013ebe361)
+        ;
+
+        
+    
+    
+            var circle_marker_317f25ab210d4c81edc84063bed0121e = L.circleMarker(
+                [30.466667175, 49.183333333],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_301fdeb2810d59814d958ab71b1ee937 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f9a8574d0a1f6381602a73abcaac1056 = $(`<div id="html_f9a8574d0a1f6381602a73abcaac1056" style="width: 100.0%; height: 100.0%;">Bandar Mahshahr, Iran</div>`)[0];
+                popup_301fdeb2810d59814d958ab71b1ee937.setContent(html_f9a8574d0a1f6381602a73abcaac1056);
+            
+        
+
+        circle_marker_317f25ab210d4c81edc84063bed0121e.bindPopup(popup_301fdeb2810d59814d958ab71b1ee937)
+        ;
+
+        
+    
+    
+            var circle_marker_3340827ab8cace262af5fa6b100489f5 = L.circleMarker(
+                [25.65265, 57.7665333],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_8717f430488b59240b78f4b7a021d58f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c0f7fc7922c0f3d8afb389e7b1dd9fc7 = $(`<div id="html_c0f7fc7922c0f3d8afb389e7b1dd9fc7" style="width: 100.0%; height: 100.0%;">Bandar Jask, Iran</div>`)[0];
+                popup_8717f430488b59240b78f4b7a021d58f.setContent(html_c0f7fc7922c0f3d8afb389e7b1dd9fc7);
+            
+        
+
+        circle_marker_3340827ab8cace262af5fa6b100489f5.bindPopup(popup_8717f430488b59240b78f4b7a021d58f)
+        ;
+
+        
+    
+    
+            var circle_marker_54e3cefc33d00986b15792dc1a7e0cae = L.circleMarker(
+                [25.575, 55.4016667],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_4d34cb9d5de9eb2d217783f8c128ddfb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5854176ed6ba5387e72163b89f45c5f2 = $(`<div id="html_5854176ed6ba5387e72163b89f45c5f2" style="width: 100.0%; height: 100.0%;">Sharjah Offshore Terminal, United Arab Emirates</div>`)[0];
+                popup_4d34cb9d5de9eb2d217783f8c128ddfb.setContent(html_5854176ed6ba5387e72163b89f45c5f2);
+            
+        
+
+        circle_marker_54e3cefc33d00986b15792dc1a7e0cae.bindPopup(popup_4d34cb9d5de9eb2d217783f8c128ddfb)
+        ;
+
+        
+    
+    
+            var circle_marker_2c82f540aaa3e9bbe2ca79aaa81f3b1b = L.circleMarker(
+                [36.6999833, 52.5571333],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_79ed279a5db2d5648eda0df85001258e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_69cc2907a4beb3f4a04894e67bb2ded4 = $(`<div id="html_69cc2907a4beb3f4a04894e67bb2ded4" style="width: 100.0%; height: 100.0%;">Fereydoon Kenar, Iran</div>`)[0];
+                popup_79ed279a5db2d5648eda0df85001258e.setContent(html_69cc2907a4beb3f4a04894e67bb2ded4);
+            
+        
+
+        circle_marker_2c82f540aaa3e9bbe2ca79aaa81f3b1b.bindPopup(popup_79ed279a5db2d5648eda0df85001258e)
+        ;
+
+        
+    
+    
+            var circle_marker_b78862cc90738012f378a0ca864c60ba = L.circleMarker(
+                [27.6586667, 52.34755],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_e9b27295eae5e49f23102077dfea629c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6b27b8639537d2f229390fad61d30470 = $(`<div id="html_6b27b8639537d2f229390fad61d30470" style="width: 100.0%; height: 100.0%;">Bandar Taheri, Iran</div>`)[0];
+                popup_e9b27295eae5e49f23102077dfea629c.setContent(html_6b27b8639537d2f229390fad61d30470);
+            
+        
+
+        circle_marker_b78862cc90738012f378a0ca864c60ba.bindPopup(popup_e9b27295eae5e49f23102077dfea629c)
+        ;
+
+        
+    
+    
+            var circle_marker_40b9afce7a6f20047ec96ce44d5349b6 = L.circleMarker(
+                [22.66666603, 59.416666666],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_90c71a08af8575db151ba455d9a2bff9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_adc35c61f7ca0dfb840428978b0253be = $(`<div id="html_adc35c61f7ca0dfb840428978b0253be" style="width: 100.0%; height: 100.0%;">Qalhat LNG Terminal, Oman</div>`)[0];
+                popup_90c71a08af8575db151ba455d9a2bff9.setContent(html_adc35c61f7ca0dfb840428978b0253be);
+            
+        
+
+        circle_marker_40b9afce7a6f20047ec96ce44d5349b6.bindPopup(popup_90c71a08af8575db151ba455d9a2bff9)
+        ;
+
+        
+    
+    
+            var circle_marker_6c13097a5a7498a1784e5a3eb3b8fd91 = L.circleMarker(
+                [26.56975, 54.0057],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_82f1063f3c1a2ca39ac2fc49eee4d884 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9d76edfddecb090dc995b3016f783cd4 = $(`<div id="html_9d76edfddecb090dc995b3016f783cd4" style="width: 100.0%; height: 100.0%;">Kish Island, Iran</div>`)[0];
+                popup_82f1063f3c1a2ca39ac2fc49eee4d884.setContent(html_9d76edfddecb090dc995b3016f783cd4);
+            
+        
+
+        circle_marker_6c13097a5a7498a1784e5a3eb3b8fd91.bindPopup(popup_82f1063f3c1a2ca39ac2fc49eee4d884)
+        ;
+
+        
+    
+    
+            var circle_marker_87855f56691383e2d4d15717753d058a = L.circleMarker(
+                [36.8604667, 53.2831833],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_c3ff13be58693e75dadbbcd271c796b2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_27501217d44474fef79c2a3f5dbc5f63 = $(`<div id="html_27501217d44474fef79c2a3f5dbc5f63" style="width: 100.0%; height: 100.0%;">Nekah, Iran</div>`)[0];
+                popup_c3ff13be58693e75dadbbcd271c796b2.setContent(html_27501217d44474fef79c2a3f5dbc5f63);
+            
+        
+
+        circle_marker_87855f56691383e2d4d15717753d058a.bindPopup(popup_c3ff13be58693e75dadbbcd271c796b2)
+        ;
+
+        
+    
+    
+            var circle_marker_0e0ba3a53fa13c51fb0fd2d602af8abe = L.circleMarker(
+                [36.8614, 53.3722667],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_fcfdd46179c840a819df6fdf8529fae0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_400ef70262b2594833fa06d02c88653a = $(`<div id="html_400ef70262b2594833fa06d02c88653a" style="width: 100.0%; height: 100.0%;">Amirabad, Iran</div>`)[0];
+                popup_fcfdd46179c840a819df6fdf8529fae0.setContent(html_400ef70262b2594833fa06d02c88653a);
+            
+        
+
+        circle_marker_0e0ba3a53fa13c51fb0fd2d602af8abe.bindPopup(popup_fcfdd46179c840a819df6fdf8529fae0)
+        ;
+
+        
+    
+    
+            var circle_marker_bcdb90a3c1d82fca78a3a578fc54380f = L.circleMarker(
+                [24.44595, 54.5010333],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_da9a3f06fb2133a0b72be4daf69e1457);
+        
+    
+        var popup_7f8f38a77780ddc17ce9d743d921f160 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_667b79d35c95a8f1741ae3dc273cac98 = $(`<div id="html_667b79d35c95a8f1741ae3dc273cac98" style="width: 100.0%; height: 100.0%;">Umm Al Nar Petroleum Port, United Arab Emirates</div>`)[0];
+                popup_7f8f38a77780ddc17ce9d743d921f160.setContent(html_667b79d35c95a8f1741ae3dc273cac98);
+            
+        
+
+        circle_marker_bcdb90a3c1d82fca78a3a578fc54380f.bindPopup(popup_7f8f38a77780ddc17ce9d743d921f160)
+        ;
+
+        
+    
+</script>
+</html>
